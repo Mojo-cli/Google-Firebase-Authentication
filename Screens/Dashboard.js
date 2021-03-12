@@ -10,7 +10,7 @@ export default class Dashboard extends React.Component{
     }
 
     componentDidMount(){
-        firebase.auth().onAuthStateChanged(user=>{
+        this.unsub = firebase.auth().onAuthStateChanged(user=>{
             if(user){
                 this.setState({
                     email:user.email
@@ -25,6 +25,10 @@ export default class Dashboard extends React.Component{
         firebase.auth().signOut().catch(error=>{
             Alert.alert(error.message)
         })
+    }
+
+    componentWillUnmount(){
+        this.unsub();
     }
 
     render(){

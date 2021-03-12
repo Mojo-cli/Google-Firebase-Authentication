@@ -6,7 +6,7 @@ import Colors from '../Constants/Colors';
 
 export default class Loading extends React.Component{
     componentDidMount(){
-        firebase.auth().onAuthStateChanged((user)=>{
+        this.unsub = firebase.auth().onAuthStateChanged((user)=>{
             if(user){
                 this.props.navigation.navigate("Dashboard")
             }else{
@@ -14,6 +14,11 @@ export default class Loading extends React.Component{
             }
         })
     }
+
+    componentWillUnmount(){
+        this.unsub();
+    }
+
     render(){
         return(
             <SafeAreaView  style={styles.container}>

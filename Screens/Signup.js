@@ -14,7 +14,7 @@ export default class Signup extends React.Component{
 
     userSignup( email, password ){
         console.log(this.state)
-        firebase.auth().createUserWithEmailAndPassword( email, password )
+        this.unsub = firebase.auth().createUserWithEmailAndPassword( email, password )
         .then(()=>{
             this.props.navigation.replace('Login')
         })
